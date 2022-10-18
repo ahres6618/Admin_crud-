@@ -1,0 +1,80 @@
+@extends('adminlte::page')
+
+@section('plugins.Datatables' ,true)
+
+@section('title')
+
+@endsection
+
+@section('content_header')
+Clients list
+@endsection
+
+@section('content')
+
+<div class="container">
+    <div class="row my">
+        <div class="col-md-6 mx-auto ">
+            <div class="card my-5">
+                <div class="card-header">
+                    <div class="text-center text-uppercase">
+                       <h4>Clients</h4> 
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table id="mytable" class=" table table-bordered table-stripped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>payment_date</th>
+                                <th>clients</th>
+                                <th>bills </th>
+                                <th>payement_amount </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($details as $key => $Detail)
+                                <tr>
+                                <td>{{$key+=1}}</td>
+                                <td>{{$Payment->product_id}}</td>
+                                <td>{{$Payment->product_name}}</td>
+                                <td>{{$Payment->quantity}}</td>
+                                <td>{{$Payment->price }}</td>
+                                <td class="d-flex justify-content-center align-items-center">
+                                    <a href="{{route('details.show', $Detail->id)}}"
+                                    class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i>
+                                    </a>
+                                
+                               
+                                    <a href="{{route('details.edit', $Detail->id)}}"
+                                    class="btn btn-sm btn-warning mx-2">
+                                    <i class="fas fa-edit"></i>
+                                    </a>
+                                
+                                <form action="{{route('details.destroy', $Detail->id )}}" method="post">
+
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit"
+                                class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                                </button>
+                                </form>
+                                </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
